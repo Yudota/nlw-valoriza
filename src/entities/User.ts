@@ -1,32 +1,39 @@
-import {Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn} from "typeorm";
+import { Exclude } from "class-transformer";
+import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-
-@Entity('users')
+@Entity("users")
 class User {
-  @PrimaryColumn()
-  readonly id: string;
 
-  @Column()
-  name:string;
-  
-  @Column()
-  email: string;
-  
-  @Column()
-  admin: boolean;
-  
-  @CreateDateColumn()
-  created_at:Date;
-  
-  @CreateDateColumn()
-  updated_at:Date;
+    @PrimaryColumn()
+    readonly id: string;
 
-  constructor(){
-    if(!this.id){
-      this.id =uuid()
+    @Column()
+    name: string;
+
+    @Column()
+    email: string;
+
+    @Exclude()
+    @Column()
+    password: string;
+
+    @Column()
+    admin: boolean;
+
+    @CreateDateColumn()
+    created_at: Date;
+
+    @UpdateDateColumn()
+    updated_at: Date;
+
+    constructor() {
+        if (!this.id) {
+            this.id = uuid();
+        }
     }
-  }
 }
 
-export { User }
+export { User };
+
+// Entidade < - > ORM < - > BD (users)
